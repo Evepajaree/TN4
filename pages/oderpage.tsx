@@ -157,7 +157,7 @@ const Oderpage: NextPage = () => {
          <Bar/>
          <Shop/>
             <div className="">
-             <Tact/>
+             <Oder/>
             </div>
         </div>
                 
@@ -177,7 +177,7 @@ const Oderpage: NextPage = () => {
        <div> 
             <Bar/> 
            
-            <Tact/>
+            <Oder/>
        </div>
 
        
