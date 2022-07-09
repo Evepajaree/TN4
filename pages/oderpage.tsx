@@ -16,10 +16,11 @@ import {formatUnits } from "ethers/lib/utils";
 import { Token } from "../types/token.type";
 import Bar from "../components/Bar";
 import Shop from "../components/Shop";
+import Oder  from "../components/Oder";
 
 
 
-const Home: NextPage = () => {
+const Oderpage: NextPage = () => {
   
   const [address, setAddress] = useState<string | null>(null);
   const [network, setNetwork] = useState<string | null>(null);
@@ -155,6 +156,9 @@ const Home: NextPage = () => {
         </div>
          <Bar/>
          <Shop/>
+            <div className="">
+             <Tact/>
+            </div>
         </div>
                 
       ) : (
@@ -170,7 +174,13 @@ const Home: NextPage = () => {
        </div>
       
 
-       <div> <Bar/> </div>
+       <div> 
+            <Bar/> 
+           
+            <Tact/>
+       </div>
+
+       
 
 </div>        
       )}
@@ -180,4 +190,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Oderpage;
