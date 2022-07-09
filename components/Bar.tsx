@@ -26,6 +26,8 @@ const Bar: NextPage = () => {
             <h1 className="mx-40 my-8">HOME</h1>
             <div className="border-t border-[#000000] "></div>
           </div>
+
+          
           <div className="m-24">
             <h1 className="mx-12 my-16"></h1>
             <div className="flex space-x-4">MY COLLECTION</div>
