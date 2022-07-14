@@ -3,6 +3,7 @@ import * as ethers from "ethers";
 import { useEffect, useState } from "react";
 import {
   connectWallet,
+  getBalance,
   getChainId,
   getEthereum,
   getProvider,
@@ -12,7 +13,7 @@ import {
   getNetworkTokens,
 } from "../constants/network-id";
 
-import {formatUnits } from "ethers/lib/utils";
+import {formatEther, formatUnits } from "ethers/lib/utils";
 import { Token } from "../types/token.type";
 import Bar from "../components/Bar";
 import Shop from "../components/Shop";
@@ -24,7 +25,7 @@ const Oderpage: NextPage = () => {
   
   const [address, setAddress] = useState<string | null>(null);
   const [network, setNetwork] = useState<string | null>(null);
- 
+  const [newBalance,setnewBalance] = useState<string | null>(null);
 
   const [tokenBalances, setTokenBalances] = useState<Record<string, string>>(
     {}
@@ -63,7 +64,7 @@ const Oderpage: NextPage = () => {
           },
         },
       });
-
+      
       if (wasAdded) {
         console.log("Thanks for your interest!");
       } else {
@@ -77,11 +78,15 @@ const Oderpage: NextPage = () => {
   const loadAccountData = async () => {
     const addr = getWalletAddress();
     setAddress(addr);
+    console.log('addr',addr);
+    
 
     const chainId = await getChainId();
     setNetwork(chainId);
 
- 
+    const Balance = await getBalance(addr)    
+    Balance = formatEther(Balance)*100000
+    setnewBalance(Balance) 
 
     const tokenList = getNetworkTokens(chainId);
 
@@ -93,10 +98,10 @@ const Oderpage: NextPage = () => {
     //   // )
     // );
 
-    tokenList.forEach((token, i) => {
+    // tokenList.forEach((token, i) => {
       // tokenBalances[token.symbol] = tokenBalList[i];
-    });
-    setTokenBalances({ ...tokenBalances });
+    // });
+    // setTokenBalances({ ...tokenBalances });
   };
 
   useEffect(() => {
@@ -138,12 +143,12 @@ const Oderpage: NextPage = () => {
                   <img
                     onClick={() => addTokenToWallet(token)}
                     src={token.imageUrl}
-                    className="w-8 h-8 mr-3 cursor-pointer"
+                    className="w-8 h-8 mr-3 cursor-pointer try"
                   />
                 </div>
                 <div>
                   <div className="flex justify-center">
-                    {tokenBalances[token.symbol] || 0} {token.symbol}
+                    {tokenBalances[token.symbol]|| newBalance} {token.symbol}
                   </div>
                 </div>
               </div>
@@ -157,7 +162,7 @@ const Oderpage: NextPage = () => {
          <Bar/>
          <Shop/>
             <div className="">
-             <Oder/>
+             <Oder address={address}/>
             </div>
         </div>
                 

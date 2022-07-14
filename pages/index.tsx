@@ -7,30 +7,32 @@ import {
   getEthereum,
   getProvider,
   getWalletAddress,
+  getSigner,
 } from "../services/wallet-service";
 import {
   getNetworkTokens,
 } from "../constants/network-id";
 
-import {formatUnits } from "ethers/lib/utils";
+import { formatUnits } from "ethers/lib/utils";
 import { Token } from "../types/token.type";
 import Bar from "../components/Bar";
 import Shop from "../components/Shop";
 import Pic from "../components/Pic";
+import { INToken__factory, Lock__factory } from "../typechain-types";
 // import abi_contract from "../abi_contract/abi.json"
 
 
 
 const Home: NextPage = () => {
-  
+
   const [address, setAddress] = useState<string | null>(null);
   const [network, setNetwork] = useState<string | null>(null);
- 
+
 
   const [tokenBalances, setTokenBalances] = useState<Record<string, string>>(
     {}
 
-    
+
   );
 
   // const [addr_contract, setAddr_contract] = useState("0x0ea4a246ACCdD4662E8F294cFf62d049a3049065");
@@ -52,10 +54,10 @@ const Home: NextPage = () => {
   };
 
   let test = "";
-    if (address != null) {
-      test = address.substring(0,4) + "..." + address.substring(38, 42);
-    
-    }
+  if (address != null) {
+    test = address.substring(0, 4) + "..." + address.substring(38, 42);
+
+  }
 
 
   const addTokenToWallet = async (token: Token) => {
@@ -91,7 +93,7 @@ const Home: NextPage = () => {
     const chainId = await getChainId();
     setNetwork(chainId);
 
- 
+
 
     const tokenList = getNetworkTokens(chainId);
 
@@ -109,6 +111,16 @@ const Home: NextPage = () => {
     setTokenBalances({ ...tokenBalances });
   };
 
+  const addressContract = "0xF3808CC074cB025363b7cd44aDBF719C227913dF";
+
+  const getLock = async () => {
+    const signer = getSigner();
+    const LockContract = Lock__factory.connect(addressContract, getProvider()).connect(signer);
+    console.log(LockContract);
+
+
+    //await swapContract.swapAforC("120")
+  }
   useEffect(() => {
     loadAccountData();
 
@@ -131,65 +143,64 @@ const Home: NextPage = () => {
   return (
     <div className="bg-slate-300  h-screen ">
       {address ? (
-  <div>
-  <div className="flex flex-row-reverse p-4 bg-white">
-  
-        
-        <div className="mx-4 ">
-               <p  className="text-[#A2805D] flex justify-center py-2 px-4 rounded-lg  bg-[#DAC6A3] ">{test}</p>
-          </div>
-       
+        <div>
+          <div className="flex flex-row-reverse p-4 bg-white">
 
-          <div className="mr-4">
-            
-            {getNetworkTokens(network).map((token) => (
-              <div key={token.symbol} className="text-[#DAC6A3]  flex justify-center py-1 px-4 rounded-lg  bg-[#A2805D]">
-                <div>
-                  <img
-                    onClick={() => addTokenToWallet(token)}
-                    src={token.imageUrl}
-                    className="w-8 h-8 mr-3 cursor-pointer"
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-center">
-                    {tokenBalances[token.symbol] || 0} {token.symbol}
+
+            <div className="mx-4 ">
+              <p className="text-[#A2805D] flex justify-center py-2 px-4 rounded-lg  bg-[#DAC6A3] ">{test}</p>
+            </div>
+
+
+            <div className="mr-4">
+
+              {getNetworkTokens(network).map((token) => (
+                <div key={token.symbol} className="text-[#DAC6A3]  flex justify-center py-1 px-4 rounded-lg  bg-[#A2805D]">
+                  <div>
+                    {/* <img
+                      onClick={() => addTokenToWallet(token)}
+                      src={token.imageUrl}
+                      className="w-8 h-8 mr-3 cursor-pointer "
+                    /> */}
+                  </div>
+                  <div>
+                    <div className="flex justify-center">
+                      {tokenBalances[token.symbol] || 0} {token.symbol}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+
+
+
           </div>
-          
-          
-       
-        
+          <Bar />
+          <Shop />
+          <Pic />
         </div>
-         <Bar/>
-         <Shop/>
-         <Pic/>
-        </div>
-                
+
       ) : (
-<div>
-        <div className="flex flex-row-reverse p-4 bg-white ">
-        <button
-          type="button"
-          className="text-white  py-2 px-4 rounded-lg  bg-[#A2805D] hover:bg-[#DAC6A3] shadow-lg shadow-[#A2805D] "
-          onClick={connectWallet}
-        >
-          Connect
-        </button>
-       </div>
-      
+        <div>
+          <div className="flex flex-row-reverse p-4 bg-white ">
+            <button
+              type="button"
+              className="text-white  py-2 px-4 rounded-lg  bg-[#A2805D] hover:bg-[#DAC6A3] shadow-lg shadow-[#A2805D] "
+              onClick={connectWallet}
+            >
+              Connect
+            </button>
+          </div>
 
-       <div>
-        
-         <Bar/>
-         <Shop/>
-         <Pic/>
+
+          <div>
+            <Bar />
+            <Shop />
+            <Pic />
+          </div>
+
         </div>
-
-</div>        
       )}
 
 

@@ -7,7 +7,7 @@ const Pic: NextPage = () => {
     <div className=" bg-slate-300 max-h-max">
   
 
-            <div className="flex justify-center py-8 ">
+            <div className="flex justify-center py-8 " >
                 <img
                      className="rounded-lg  shadow-lg shadow-[#A2805D]"
                      src="/1535811946.jpg"

@@ -51,7 +51,7 @@ async function putDatas(id:any){
     <div className=" bg-slate-300 max-h-max">
   
         {/* Card Section From Datas[] */}
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center" >
           {Datas.map((_contex,idx)=>(
             <div key={idx} className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
               <div>

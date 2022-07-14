@@ -32,7 +32,7 @@ export const getNetworkCurrency = (chainId: string | null) => {
   }
 };
 
-export const getNetworkTokens = (chainId: string | null) => {
+export const getNetworkTokens = (chainId: string | null) => {  
   switch (chainId) {
     case "0x1":
       return ETH_TOKENS;
