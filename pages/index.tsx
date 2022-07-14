@@ -16,6 +16,8 @@ import {formatUnits } from "ethers/lib/utils";
 import { Token } from "../types/token.type";
 import Bar from "../components/Bar";
 import Shop from "../components/Shop";
+import Pic from "../components/Pic";
+// import abi_contract from "../abi_contract/abi.json"
 
 
 
@@ -30,6 +32,15 @@ const Home: NextPage = () => {
 
     
   );
+
+  // const [addr_contract, setAddr_contract] = useState("0x0ea4a246ACCdD4662E8F294cFf62d049a3049065");
+  // const getTokenBalance = async (
+  //   tokenAddress: string,
+  //   ownerAddress: string
+  // ) => {
+  //   const contract = new ethers.Contract(tokenAddress, abi_contract, getProvider()!);
+  //   return contract.balanceOf(ownerAddress);
+  // };
 
   const getTokenBalance = async (
     tokenAddress: string,
@@ -155,6 +166,7 @@ const Home: NextPage = () => {
         </div>
          <Bar/>
          <Shop/>
+         <Pic/>
         </div>
                 
       ) : (
@@ -170,7 +182,12 @@ const Home: NextPage = () => {
        </div>
       
 
-       <div> <Bar/> </div>
+       <div>
+        
+         <Bar/>
+         <Shop/>
+         <Pic/>
+        </div>
 
 </div>        
       )}
