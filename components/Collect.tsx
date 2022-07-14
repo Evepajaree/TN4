@@ -1,46 +1,57 @@
+import type { NextPage } from "next";
 import React ,{useEffect,useState}from "react";
 
-// import Collect from "./collect";
 import axios from "axios";
-
- const apiEndpoint = 'http://localhost:8000'
-const  Oder = () => {
-  const [Datas,setDatas] = useState([])
+const apiEndpoint = 'http://localhost:8000'
 
 
-  async function fetchDatas(){
+const Collect: NextPage = (props) => {
+  
+//  console.log(props);
+ 
+ const [Datas,setDatas] = useState([])
 
-  let tmp = await axios.get(apiEndpoint)
-  // console.log('tmp',tmp.data);
 
-  setDatas(tmp.data)      
+ async function fetchCollection(){
+
+ let tmp = await axios.get(apiEndpoint)
+//  console.log('tmp',tmp.data);
+ try {
+  let FilterData = tmp.data.filter(result => result.favorite === true)  
+  console.log('FilterData',FilterData);
+    
+  setDatas(FilterData)
+ } catch (error) {
+  console.log('error to set filterdata');
+  
  }
 
- async function putDatas(id:any){
+ 
+ 
+
+}
+async function putDatas(id:any){
 
   // console.log(id);
   // { favorite: true }
   await axios.put(`${apiEndpoint}/${id}`)
 
-  await fetchDatas()
+  await fetchCollection()
   
  }
 
 
-
-  useEffect(()=>{
+ useEffect(()=>{
   
-    fetchDatas()
+  fetchCollection()
 
-  },[])
+},[])
 
   return (
-<div className="flex justify-center  bg-gray-400 pt-6 pb-6">
-
-    <div className="flex flex-row">
-        
+    <div className=" bg-slate-300 max-h-max">
+  
         {/* Card Section From Datas[] */}
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-center">
           {Datas.map((_contex,idx)=>(
             <div key={idx} className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
               <div>
@@ -58,26 +69,9 @@ const  Oder = () => {
           ))}
         </div>
             {/* End Card from Datas[] */}
-        
-        {/* <img
-          className=" h-96  w-96 "
-          src="/a1.jpg"
-        />
-        <img
-         className=" h-96  w-96"
-         src="/a2.jpg"
-        
-       />
-       <img
-         className=" h-96  w-96"
-         src="/a3.jpg"
-        
-       /> */}
 
     </div>
-
-</div>
   );
 };
 
-export default Oder;
+export default Collect;

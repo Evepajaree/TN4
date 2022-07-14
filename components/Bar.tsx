@@ -10,7 +10,7 @@ const Bar: NextPage = () => {
         <div className="bg-white">
         
        <div className="flex justify-center bg-white ">
-        <div className="flex justify-start md:justify-between bg-white">
+        <div className="flex justify-start md:justify-between bg-white mt-6">
           <div>
              <img src="/logo.png" className="h-24" />
           </div>
@@ -22,22 +22,35 @@ const Bar: NextPage = () => {
         
         <div  className="flex justify-start md:justify-between bg-white">
 
-          <div className="m-24">
-            <h1 className="mx-40 my-8">HOME</h1>
+          <div className="m-10">
+          <ul>
+      <li>
+            <Link href="/oderpage">
+            <h1 className="mx-40 my-8 cursor-pointer">HOME</h1>
+            </Link>
+            </li>
+            </ul>
             <div className="border-t border-[#000000] "></div>
           </div>
 
           
-          <div className="m-24">
-            <h1 className="mx-12 my-16"></h1>
-            <div className="flex space-x-4">MY COLLECTION</div>
+          <div className="m-10">
+          <ul>
+      <li>
+            <Link href="/collection">
+            <h1 className="mx-12 my-16 cursor-pointer">MyColiection</h1>
+            
+            </Link>
+            </li>
+            </ul>
             
           </div>
-          <div className="m-24">
+
+          <div className="m-10">
           <ul>
       <li>
             <Link href="/contact">
-                <h1 className="mx-40 my-8">CONTACT</h1>
+                <h1 className="mx-40 my-8 cursor-pointer">CONTACT</h1>
             </Link>
 
             </li>

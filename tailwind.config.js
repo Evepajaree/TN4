@@ -7,4 +7,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+
+  colors: {
+    'regal-blue': '#243c5a',
+  },
 }
